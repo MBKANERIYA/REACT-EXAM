@@ -1,0 +1,43 @@
+import axios from "axios";
+import {
+  BASE_URL,
+  DELETE_RECIPE,
+  GET_RECIPE,
+  POST_RECIPE,
+  PUT_RECIPE,
+} from "../constant";
+
+let get_recipe = async (action) => {
+
+  let res = await axios.get(BASE_URL + GET_RECIPE);
+  let data = res.data;
+  let status = res.status;
+  return { data, status };
+};
+
+let post_recipe = async (action) => {
+  let { data, status } = await axios.post(
+    BASE_URL + POST_RECIPE,
+    action.payload
+  );
+  return { data, status };
+};
+
+let delete_recipe = async (action) => {
+  let { data, status } = await axios.delete(
+    BASE_URL + DELETE_RECIPE + action.payload
+  );
+  return { data, status };
+};
+
+let update_recipe = async (action) => {
+  console.log(action, "from update api");
+
+  let { data, status } = await axios.put(
+    BASE_URL + PUT_RECIPE + action.payload.id,
+    action.payload
+  );
+  return { data, status };
+};
+
+export { get_recipe, post_recipe, delete_recipe, update_recipe };
